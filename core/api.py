@@ -1,0 +1,64 @@
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseNotAllowed
+from django.http import JsonResponse
+
+from builder.models import BaseDockerImage, DockerComposeImage
+import json
+
+from django.http import FileResponse
+import uuid
+from io import StringIO
+import time
+
+
+def get_docker_image_code(request):
+    """
+    get docker image command code
+    """
+    if request.method == "POST":
+        json_load = json.load(request)
+        try:
+            app = get_object_or_404(BaseDockerImage, name__iexact=json_load["name"])
+            return JsonResponse({'code': app.command_code, 'name': app.name})
+        except Exception as e:
+            print(e)
+            return JsonResponse({'msg': "Does not exist."}, status=404)
+
+    else:
+        return HttpResponseNotAllowed(['POST'])
+
+
+def convert_to_docker_compose_file(request):
+    """
+    convert from docker compose code to docker-compose.yml file
+    """
+    if request.method == "POST":
+        json_load = json.load(request)
+        raw_yaml = json_load["code"].replace("\t", "    ")
+
+        rdk = f"""{raw_yaml}
+        """
+        uid = str(uuid.uuid4().hex) + f"{time.time()}".replace('.', '')
+
+        dci = DockerComposeImage.objects.create(
+            name=uid,
+            compose_code=rdk
+        )
+
+        for i in json_load["used"]:
+            try:
+                dci.apps.add(BaseDockerImage.objects.get(name__iexact=i))
+            except:
+                pass
+        dci.save()
+
+        # write file in memory
+        f = StringIO(rdk)
+        file_name = "docker-compose.yml"
+        response = FileResponse(f.read(), as_attachment=True, filename=file_name, content_type="application/yaml")
+        response['Content-Type'] = 'application/yaml'
+        response['Content-Disposition'] = 'attachment; filename=' + file_name
+        return response
+
+    else:
+        return HttpResponseNotAllowed(['POST'])
