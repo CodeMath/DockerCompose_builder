@@ -6,3 +6,4 @@ omit =
     *models.py
     **/migrations/**
     settings.py
+    **/factories.py
