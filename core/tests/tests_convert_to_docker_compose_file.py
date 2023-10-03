@@ -48,3 +48,10 @@ def test_added_apps_with_dockerfile_200(client, test_generate_docker_image: fact
     assert DockerComposeImage.objects.last().apps.all().count() == 1
     assert res.status_code == 200
     assert res['content-type'] == "application/zip"
+
+@pytest.mark.django_db
+def test_not_allowed_method_405(client):
+    res = client.get(
+        reverse('convert_to_docker_compose_file')
+    )
+    assert res.status_code == 405

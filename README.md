@@ -1,4 +1,7 @@
 # docker-compose.yml builder App
+[![Django CI & Pytest](https://github.com/CodeMath/DockerCompose_builder/actions/workflows/Pytest_build.yml/badge.svg?branch=main)](https://github.com/CodeMath/DockerCompose_builder/actions/workflows/Pytest_build.yml)
+
+
 
 > 도커 컴포즈(docker-compse.yml) 및 도커 파일(Dockerfile) 빌더
 ```
