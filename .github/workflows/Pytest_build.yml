@@ -48,8 +48,8 @@ jobs:
       id: coverageComment
       uses: MishaKav/pytest-coverage-comment@main
       with:
-        pytest-coverage-path: ./pytest-coverage.txt
-        junitxml-path: ./pytest.xml
+        pytest-coverage-path: pytest-coverage.txt
+        junitxml-path: pytest.xml
         
     - name: Update Readme with Coverage Html
       if: ${{ github.ref == 'refs/heads/main' }}
