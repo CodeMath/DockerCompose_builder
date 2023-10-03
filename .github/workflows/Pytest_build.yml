@@ -39,7 +39,7 @@ jobs:
     
     - name: Build coverage 
       run: |
-        pytest --junitxml=pytest.xml --cov-report=term-missing --cov=docker_compose_gui | tee pytest-coverage.txt
+        pytest --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov=core | tee pytest-coverage.txt
     
     - name: Pytest Coverage Comment
       if: ${{ github.ref == 'refs/heads/main' }}
