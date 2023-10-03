@@ -24,7 +24,6 @@ class BaseDockerImage(models.Model):
 
 
 
-import uuid
 class DockerComposeImage(models.Model):
     name = models.CharField(
         default='',

@@ -43,9 +43,11 @@ def convert_to_docker_compose_file(request):
 
         dci = DockerComposeImage.objects.create(
             name=uid,
-            compose_code=rdk
+            compose_code=rdk,
+            description=",".join(json_load["used"])
         )
         dk_file = []
+
         for i in json_load["used"]:
             try:
                 dk = BaseDockerImage.objects.get(name__iexact=i)
@@ -54,6 +56,7 @@ def convert_to_docker_compose_file(request):
                     dk_file.append(dk)
             except:
                 pass
+
         dci.save()
 
 

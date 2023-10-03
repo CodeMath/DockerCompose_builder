@@ -1,0 +1,8 @@
+[run]
+omit =
+    *__init__.py
+    *urls.py
+    *apps.py
+    *models.py
+    **/migrations/**
+    settings.py
