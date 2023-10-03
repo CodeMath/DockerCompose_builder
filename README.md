@@ -1,7 +1,7 @@
 # docker-compose.yml builder App
 [![Django CI & Pytest](https://github.com/CodeMath/DockerCompose_builder/actions/workflows/Pytest_build.yml/badge.svg?branch=main)](https://github.com/CodeMath/DockerCompose_builder/actions/workflows/Pytest_build.yml)
 <!-- Pytest Coverage Comment:Begin -->
-<!-- Pytest Coverage Comment:End -->
+<a href="https://github.com/CodeMath/DockerCompose_builder/blob/main/README.md"><img alt="Coverage" src="https://img.shields.io/badge/Coverage-99%25-brightgreen.svg" /></a><details><summary>Coverage Report </summary><table><tr><th>File</th><th>Stmts</th><th>Miss</th><th>Cover</th><th>Missing</th></tr><tbody><tr><td colspan="5"><b>base</b></td></tr><tr><td>&nbsp; &nbsp;<a href="https://github.com/CodeMath/DockerCompose_builder/blob/main/base/views.py">views.py</a></td><td>8</td><td>1</td><td>88%</td><td><a href="https://github.com/CodeMath/DockerCompose_builder/blob/main/base/views.py#L11">11</a></td></tr><tr><td colspan="5"><b>builder</b></td></tr><tr><td>&nbsp; &nbsp;<a href="https://github.com/CodeMath/DockerCompose_builder/blob/main/builder/factories.py">factories.py</a></td><td>34</td><td>1</td><td>97%</td><td><a href="https://github.com/CodeMath/DockerCompose_builder/blob/main/builder/factories.py#L114">114</a></td></tr><tr><td><b>TOTAL</b></td><td><b>152</b></td><td><b>2</b></td><td><b>99%</b></td><td>&nbsp;</td></tr></tbody></table></details><!-- Pytest Coverage Comment:End -->
 
 
 
