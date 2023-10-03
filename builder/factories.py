@@ -75,6 +75,7 @@ class DockerComposeImageWithAppsFactory(DockerComposeImageFactory):
     """
     class Meta:
         model = DockerComposeImage
+        skip_postgeneration_save = True
 
     compose_code = """version: "3.7"
 services:
