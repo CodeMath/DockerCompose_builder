@@ -41,15 +41,15 @@ jobs:
     
     - name: Build coverage 
       run: |
-        pytest --junitxml=./data/pytest.xml --cov-report=term-missing --cov docker_compose_gui tests/ | tee ./data/pytest-coverage.txt
+        pytest --junitxml=/data/pytest.xml --cov-report=term-missing --cov docker_compose_gui tests/ | tee /data/pytest-coverage.txt
     
     - name: Pytest Coverage Comment
       if: ${{ github.ref == 'refs/heads/main' }}
       id: coverageComment
       uses: MishaKav/pytest-coverage-comment@main
       with:
-        pytest-coverage-path: ./data/pytest-coverage.txt
-        junitxml-path: ./data/pytest.xml
+        pytest-coverage-path: /data/pytest-coverage.txt
+        junitxml-path: /data/pytest.xml
         
     - name: Update Readme with Coverage Html
       if: ${{ github.ref == 'refs/heads/main' }}
