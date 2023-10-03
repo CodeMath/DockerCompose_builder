@@ -152,10 +152,16 @@
         })
             .then((res)=> res.blob())
             .then(blob => {
+
                 let file = window.URL.createObjectURL(blob);
                 let dc = document.createElement('a');
                 dc.href= file;
-                dc.download = 'docker-compose.yml';
+                if (blob.type === "application/zip"){
+                    dc.download = 'docker-compose.zip';
+                }else{
+                    dc.download = 'docker-compose.yml';
+                }
+
                 dc.click();
             })
             .catch((e)=>{

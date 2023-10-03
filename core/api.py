@@ -5,10 +5,11 @@ from django.http import JsonResponse
 from builder.models import BaseDockerImage, DockerComposeImage
 import json
 
-from django.http import FileResponse
+from django.http import FileResponse, HttpResponse
 import uuid
-from io import StringIO
+from io import StringIO, BytesIO
 import time
+import zipfile
 
 
 def get_docker_image_code(request):
@@ -44,20 +45,44 @@ def convert_to_docker_compose_file(request):
             name=uid,
             compose_code=rdk
         )
-
+        dk_file = []
         for i in json_load["used"]:
             try:
-                dci.apps.add(BaseDockerImage.objects.get(name__iexact=i))
+                dk = BaseDockerImage.objects.get(name__iexact=i)
+                dci.apps.add(dk)
+                if dk.dockerfile:
+                    dk_file.append(dk)
             except:
                 pass
         dci.save()
 
-        # write file in memory
+
+        # write file in memoryq
         f = StringIO(rdk)
-        file_name = "docker-compose.yml"
-        response = FileResponse(f.read(), as_attachment=True, filename=file_name, content_type="application/yaml")
-        response['Content-Type'] = 'application/yaml'
-        response['Content-Disposition'] = 'attachment; filename=' + file_name
+
+        # exist dockerfile?
+        if dk_file:
+
+            # make zip
+            zip_buffer = BytesIO()
+            with zipfile.ZipFile(zip_buffer, 'w') as zips:
+                for dk in dk_file:
+                    zips.writestr(
+                        f"{dk.name}/{dk.dockerfile.dockerfile_name}", StringIO(f"{dk.dockerfile.dockerfile}").getvalue()
+                    )
+                zips.writestr("docker-compose.yml", f.getvalue())
+                zips.close()
+
+            response = HttpResponse(zip_buffer.getvalue(), content_type="application/zip")
+            response['Content-Disposition'] = 'attachment; filename=docker-compose.zip'
+            response.headers['Content-Type'] = 'application/zip'
+
+
+        else:
+            response = HttpResponse(f.getvalue(), content_type="application/yaml")
+            response['Content-Disposition'] = 'attachment; filename=docker-compose.yml'
+            response.headers['Content-Type'] = 'application/yaml'
+
         return response
 
     else:
