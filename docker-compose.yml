@@ -1,0 +1,62 @@
+version: '3.7'
+
+services:
+  nginx:
+    image: nginx:1.19.5
+    networks:
+      - network
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    expose:
+      - "80"
+    ports:
+      - "80:80"
+    depends_on:
+      - apps
+
+  apps:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: docker_compose_gui
+    networks:
+      - network
+    entrypoint:
+      - sh
+      - docker_apps_entry.sh
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+    restart: always
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.12.6-management
+    networks:
+      - network
+    env_file:
+      - .env
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    expose:
+      - "15672"
+    depends_on:
+      - apps
+
+  celery_worker:
+    container_name: celery_worker
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - apps
+      - rabbitmq
+    command: sh -c "celery --app=docker_compose_gui worker -l INFO -P solo"
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
