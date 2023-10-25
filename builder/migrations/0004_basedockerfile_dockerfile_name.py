@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('builder', '0003_basedockerfile'),
+        ('builder_docker', '0003_basedockerfile'),
     ]
 
     operations = [

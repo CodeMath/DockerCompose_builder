@@ -1,6 +1,7 @@
 from django.db import models
 
 class BaseDockerFile(models.Model):
+    name = models.CharField(verbose_name="이름", default='', max_length=100)
     dockerfile_name = models.CharField(verbose_name="도커파일 이름", default='Dockerfile.', max_length=200, null=True, blank=True)
     dockerfile = models.TextField(verbose_name="커멘드 명령어", null=True, blank=True)
 

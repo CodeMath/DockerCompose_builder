@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('builder', '0006_alter_dockercomposeimage_name'),
+        ('builder_docker', '0006_alter_dockercomposeimage_name'),
     ]
 
     operations = [

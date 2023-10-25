@@ -7,7 +7,7 @@ class BaseDockerImageAdmin(admin.ModelAdmin):
 
 @admin.register(BaseDockerFile)
 class BaseDockerFileAdmin(admin.ModelAdmin):
-    list_display = ["dockerfile_name"]
+    list_display = ["name", "dockerfile_name"]
 
 @admin.register(DockerComposeImage)
 class DockerComposeImageAdmin(admin.ModelAdmin):
