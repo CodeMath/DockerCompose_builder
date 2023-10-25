@@ -1,5 +1,5 @@
 import factory
-from builder_docker.models import *
+from builder.models import *
 
 
 class BaseDockerFileFactory(factory.django.DjangoModelFactory):

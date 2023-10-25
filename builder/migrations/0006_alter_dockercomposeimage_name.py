@@ -7,7 +7,7 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('builder_docker', '0005_remove_basedockerfile_name_and_more'),
+        ('builder', '0005_remove_basedockerfile_name_and_more'),
     ]
 
     operations = [

@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('builder_docker', '0002_alter_basedockerimage_image_and_more'),
+        ('builder', '0002_alter_basedockerimage_image_and_more'),
     ]
 
     operations = [
@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('dockerfile', models.TextField(blank=True, null=True, verbose_name='커멘드 명령어')),
-                ('name', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='builder_docker.basedockerimage', verbose_name='도커 이미지')),
+                ('name', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='builder.basedockerimage', verbose_name='도커 이미지')),
             ],
         ),
     ]
