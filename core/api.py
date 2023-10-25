@@ -5,12 +5,11 @@ from django.http import JsonResponse
 from builder.models import BaseDockerImage, DockerComposeImage
 import json
 
-from django.http import FileResponse, HttpResponse
+from django.http import HttpResponse
 import uuid
 from io import StringIO, BytesIO
 import time
 import zipfile
-
 
 def get_docker_image_code(request):
     """
@@ -59,13 +58,11 @@ def convert_to_docker_compose_file(request):
 
         dci.save()
 
-
         # write file in memoryq
         f = StringIO(rdk)
 
         # exist dockerfile?
         if dk_file:
-
             # make zip
             zip_buffer = BytesIO()
             with zipfile.ZipFile(zip_buffer, 'w') as zips:
